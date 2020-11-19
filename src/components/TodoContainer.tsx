@@ -13,17 +13,18 @@ export const TodoContainer: React.FC<IProps> = () => {
     const [value, setValue] = useState<string>('')
     const [todos, setTodos] = useState<Array<ITodo> | []>([])
     const [loader, setLoader] = useState<boolean>(false)
-
+    const [error, setError] = useState<boolean>(false)
     useEffect(() => {
-        try {
-            setLoader(true)
-            http.get(url).then(res => {
-                setTodos(res)
-                setLoader(false)
-            })
-        } catch (e) {
+        setLoader(true)
+        http.get(url).then(res => {
+            setTodos(res)
             setLoader(false)
-        }
+            setError(false)
+        }).catch(error => {
+            setError(true)
+            setLoader(false)
+        })
+
 
     }, [])
 
@@ -39,6 +40,7 @@ export const TodoContainer: React.FC<IProps> = () => {
             <TodoWrapper
                 loader={loader}
                 todos={todos}
+                error={error}
                 setTodos={setTodos}
             />
         </div>

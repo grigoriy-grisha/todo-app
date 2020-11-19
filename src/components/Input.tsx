@@ -11,8 +11,6 @@ interface IProps {
 
 }
 
-
-
 const InputFor = styled.input`
   width: 100%;
   border: none;
@@ -44,11 +42,12 @@ export const Input: React.FC<IProps> = ({value, setValue, setTodos, setLoader}) 
 
     return (
         <form onSubmit={onHandleChange}>
-            <InputFor id="input"
-                      className="input-add"
-                   placeholder="Введите название задачи"
-                   value={value}
-                   onChange={(e) => setValue(e.target.value)}/>
+            <InputFor
+                id="input"
+                className="input-add"
+                placeholder="Введите название задачи"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}/>
         </form>
     )
 }

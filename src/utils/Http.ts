@@ -1,6 +1,5 @@
 class Http {
-    constructor() {
-    }
+    constructor() {}
 
     get(url: string) {
         return fetch(url).then(res => res.json())
@@ -14,7 +13,6 @@ class Http {
             method: 'POST',
             headers: MyHeaders,
             body: JSON.stringify(body),
-            redirect: 'follow'
         }).then(res => res.json())
     }
 
@@ -22,7 +20,6 @@ class Http {
         return fetch(url, {
             method: 'DELETE',
             body: JSON.stringify(body),
-            redirect: 'follow'
         }).then(res => res.json())
     }
 

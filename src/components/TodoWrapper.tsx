@@ -14,22 +14,45 @@ const TodoWrapperStyles = styled.div`
   box-shadow: -3px -2px 55px -6px rgba(0,0,0,0.65);
 `
 
+const CenterElement = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+`
+
+const ColorRed = styled.span`
+    color: red;
+`
+
 
 interface IProps {
     todos: Array<ITodo> | []
     setTodos: any
     loader: boolean
+    error: boolean
 }
 
-export const TodoWrapper: React.FC<IProps> = React.memo(({todos, setTodos, loader}) => {
+export const TodoWrapper: React.FC<IProps> = React.memo(({todos, setTodos, loader, error}) => {
+
+    if (error) {
+        return (
+            <TodoWrapperStyles>
+                <CenterElement>
+                    <ColorRed><h1>Error</h1></ColorRed>
+                </CenterElement>
+            </TodoWrapperStyles>
+        )
+    }
 
     return (
         <TodoWrapperStyles>
-            {loader ? <Loader/> : todos.length
-
+            {loader ? <CenterElement><Loader/> </CenterElement> : todos.length
                 ? (todos as Array<ITodo>).map((item: ITodo) => (
                     <TodoItem key={item._id} {...item} setTodos={setTodos}/>))
-                : <h1>No todos</h1>
+
+                : <CenterElement><h1>No todos</h1></CenterElement>
             }
         </TodoWrapperStyles>
     )
